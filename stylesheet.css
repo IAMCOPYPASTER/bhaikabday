@@ -1,0 +1,297 @@
+/* --- RESET & CORE --- */
+:root {
+  --bg-dark: #0f0c29;
+  --bg-mid: #302b63;
+  --bg-light: #24243e;
+  --primary: #ff00cc;
+  --secondary: #3333ff;
+  --glass: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --text-main: #ffffff;
+  --text-muted: #b3b3b3;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  /* Modern Deep Space Gradient */
+  background-image: radial-gradient(circle at 50% 120%, #2b054a 0%, #120824 50%, #000000 100%);
+  color: var(--text-main);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
+  transition: background-color 5s linear; /* Preserved for legacy animation */
+}
+
+/* --- GLASSMORPHISM CARD LAYOUT --- */
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 900px;
+  min-height: 500px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.left {
+  flex: 1;
+  background: rgba(0,0,0,0.2);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.photo-area {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transition: transform 0.5s;
+}
+
+.right {
+  flex: 1.5;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+/* --- TYPOGRAPHY --- */
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.name-glow {
+  color: transparent;
+  background: linear-gradient(to right, #ff00cc, #333399);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(255, 0, 204, 0.5);
+  font-size: 3.5rem;
+}
+
+.intro {
+  font-size: 1.2rem;
+  color: #a4b0be;
+  min-height: 3em;
+}
+
+.message p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* --- CONTROLS & BUTTONS --- */
+.controls {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #ff00cc, #333399);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 0, 204, 0.4);
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.2);
+  color: white;
+}
+
+.highlight-btn {
+  background: #fff;
+  color: #0f0c29;
+  box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 0, 204, 0.6);
+}
+
+/* --- LEGACY BULBS (Updated visuals, kept classes) --- */
+.bulb-holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  z-index: 5;
+  pointer-events: none;
+  padding-top: 10px;
+}
+
+.bulb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #444;
+  opacity: 0.2;
+  transition: all 0.5s;
+  box-shadow: inset 0 -5px 10px rgba(0,0,0,0.5);
+}
+
+/* Bulb Glow Animations with Real Light Effect */
+@keyframes bulb-flash-yellow { 0%, 100% { background:#444; box-shadow:none;} 50% { background:#ffeb3b; box-shadow: 0 0 30px #ffeb3b; opacity:1;} }
+@keyframes bulb-flash-red { 0%, 100% { background:#444; box-shadow:none;} 50% { background:#ff1744; box-shadow: 0 0 30px #ff1744; opacity:1;} }
+@keyframes bulb-flash-blue { 0%, 100% { background:#444; box-shadow:none;} 50% { background:#2979ff; box-shadow: 0 0 30px #2979ff; opacity:1;} }
+@keyframes bulb-flash-green { 0%, 100% { background:#444; box-shadow:none;} 50% { background:#00e676; box-shadow: 0 0 30px #00e676; opacity:1;} }
+@keyframes bulb-flash-pink { 0%, 100% { background:#444; box-shadow:none;} 50% { background:#f50057; box-shadow: 0 0 30px #f50057; opacity:1;} }
+@keyframes bulb-flash-orange { 0%, 100% { background:#444; box-shadow:none;} 50% { background:#ff9100; box-shadow: 0 0 30px #ff9100; opacity:1;} }
+
+/* Mapping legacy class names to new keyframes */
+.bulb-glow-yellow { animation: bulb-flash-yellow 2s infinite; }
+.bulb-glow-red { animation: bulb-flash-red 2.1s infinite; }
+.bulb-glow-blue { animation: bulb-flash-blue 2.2s infinite; }
+.bulb-glow-green { animation: bulb-flash-green 2.3s infinite; }
+.bulb-glow-pink { animation: bulb-flash-pink 2.4s infinite; }
+.bulb-glow-orange { animation: bulb-flash-orange 2.5s infinite; }
+
+.bulb-glow-yellow-after { opacity: 1; background: #ffeb3b; box-shadow: 0 0 20px #ffeb3b; }
+
+/* --- OTHER LEGACY ELEMENTS --- */
+.bannar {
+  position: absolute;
+  width: 100%;
+  top: 15%;
+  text-align: center;
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+}
+.bannar-come {
+  animation: banner-entry 4s ease-out forwards;
+}
+@keyframes banner-entry {
+  0% { transform: translateY(-500px) rotate(-10deg); }
+  60% { transform: translateY(20px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0); }
+}
+
+.balloons {
+  /* Keeping legacy logic but ensuring they look okay */
+  opacity: 0.8;
+}
+
+/* --- SLIDESHOW OVERLAY --- */
+.slideshow-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.slideshow-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+.slide-content {
+  text-align: center;
+  max-width: 800px;
+  width: 90%;
+}
+.slide-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(255, 0, 204, 0.3);
+  background: #000;
+  margin-bottom: 20px;
+  border: 2px solid #333;
+}
+#slideImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 60vh;
+  object-fit: contain;
+}
+.slide-caption {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-family: 'Sacramento', cursive;
+  text-shadow: 0 2px 4px #000;
+}
+.glass-btn {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid white;
+  color: white;
+}
+.nav-btn {
+  background: none; border: none; color: white; font-size: 2rem; cursor: pointer; padding: 0 20px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    width: 95%;
+    margin-top: 20px;
+  }
+  .left { display: none; } /* Hide image on mobile to save space */
+  .right { padding: 20px; text-align: center; }
+  .title { font-size: 2rem; }
+  .name-glow { font-size: 3rem; }
+  .controls { justify-content: center; }
+}
+
+/* Legacy: Peach Animation Override (Keeps logic, changes color) */
+.peach { background-color: var(--bg-dark); }
+.peach-after { animation: night-pulse 8s infinite; }
+@keyframes night-pulse {
+  0% { background-color: #0f0c29; }
+  50% { background-color: #240b36; }
+  100% { background-color: #0f0c29; }
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Rishi!</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Poppins:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="stylesheet.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  
+  <div class="bg-wrap">
+    <div class="light-grid"></div>
+    <div class="floating-balloons" aria-hidden="true"></div>
+  </div>
+
+  <main class="card">
+    <div class="left">
+      <div id="rishi-photo" class="photo-area" style="background-image: url('rishi.jpg');"></div>
+    </div>
+
+    <div class="right">
+      <h1 class="title">Happy Birthday <br><span class="name-glow">RISHI!</span></h1>
+
+      <div class="message-box">
+        <p class="intro" id="typed">Loading surprise...</p>
+        <div class="message">
+          <p id="mainMessage">
+            Bro, happy birthday — stay savage, stay winning. 
+            Wishing you energy, luck, and an IIT-level grind this year. 🎂🔥
+          </p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="wishBtn" class="btn primary-btn">Make a Wish ✨</button>
+        <button id="musicBtn" class="btn secondary-btn">Play Music 🎵</button>
+        <button id="slideshowBtn" class="btn highlight-btn">Open Memories 📸</button>
+      </div>
+    </div>
+
+    <canvas id="fireworks" class="fireworks-canvas"></canvas>
+  </main>
+
+  <audio id="bgMusic" src="hbd.mp3" preload="auto"></audio>
+  <audio id="music2" src="music2.mp3" preload="auto"></audio>
+
+  <div id="slideshowOverlay" class="slideshow-overlay" aria-hidden="true">
+    <div class="slide-content">
+      <div class="slide-wrapper">
+        <img id="slideImg" src="" alt="Memories">
+      </div>
+      <div class="slide-caption" id="slideCaption"></div>
+      <div class="slide-controls">
+        <button id="prevSlide" class="nav-btn">❮</button>
+        <button id="endSlides" class="btn glass-btn">Close</button>
+        <button id="nextSlide" class="nav-btn">❯</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bulb-holder">
+     <div class="bulb" id="bulb_yellow"></div>
+     <div class="bulb" id="bulb_red"></div>
+     <div class="bulb" id="bulb_blue"></div>
+     <div class="bulb" id="bulb_green"></div>
+     <div class="bulb" id="bulb_pink"></div>
+     <div class="bulb" id="bulb_orange"></div>
+  </div>
+  <div class="bannar">
+    <img src="banner.png" alt="Happy Birthday" style="max-width:100%; opacity:0.9;">
+  </div>
+  <div class="cake-cover">
+    <div class="cake" id="cake">
+       <img src="cake.png" alt="Cake" style="width:100px;">
+       <div class="candle" id="candle"></div>
+    </div>
+  </div>
+
+  <footer class="credit">Made with ❤️ for Rishi</footer>
+
+  <script src="effect.js"></script>
+  <script src="effect_custom.js"></script>
+</body>
+  </html>
+    

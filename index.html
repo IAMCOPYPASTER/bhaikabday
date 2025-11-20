@@ -1,68 +1,118 @@
-<!doctype html>
-<html lang="en">
+<!-- SECTION: index.html (FINAL VERSION) --><!-- Paste this into your project's index.html --><!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy Birthday RISHI!</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="stylesheet.css">
-
-  <!-- confetti lib -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday Rishi</title>
+<link rel="stylesheet" href="stylesheet.css" />
 </head>
-<body>
-  <!-- Background layers (modernized) -->
-  <div class="bg-wrap">
-    <div class="light-grid"></div>
-    <div class="floating-balloons" aria-hidden="true"></div>
-  </div>
+<body><div class="container">
+    <h1 id="typed"></h1><button id="turn_on">Turn On Lights</button>
+<button id="play">Play Music</button>
+<button id="bannar_coming">Let Banner Come</button>
+<button id="balloons_flying">Fly Balloons</button>
+<button id="cake_fadein">Show Cake</button>
+<button id="light_candle">Light Candle</button>
+<button id="wish_message">Show Wish</button>
+<button id="story">Story</button>
 
-  <!-- Main card/content -->
-  <main class="card">
-    <div class="left">
-      <img id="rishi-photo" src="rishi.jpg" alt="Rishi" onerror="this.style.display='none'">
-      <div class="cake-icon" aria-hidden="true"></div>
-    </div>
+<!-- NEW BUTTON -->
+<button id="slideshowBtn">Start Surprise 🎁</button>
 
-    <div class="right">
-      <h1 class="title">Happy Birthday <span class="name">RISHI!</span></h1>
+</div><!-- Slideshow overlay --><div id="slideshowOverlay" style="display:none">
+    <img id="slideImg" />
+    <div id="slideCaption"></div>
+    <button id="endSlides">Close</button>
+</div><canvas id="fireworks"></canvas>
 
-      <p class="intro" id="typed">...</p>
+<div id="heartbeatGlow"></div>
+<div id="finalText">Happy Birthday Rishi ❤️</div><audio id="bgMusic" src="music.mp3"></audio> <audio id="music2" src="music2.mp3"></audio>
 
-      <div class="message">
-        <p id="mainMessage">Bro, happy birthday — stay savage, stay winning. Wishing you energy, luck, and an IIT-level grind this year. 🎂🔥</p>
-      </div>
+<script src="effect.js"></script></body>
+</html><!-- SECTION: effect.js (FINAL MERGED VERSION) --><!-- Paste this into effect.js (replace entire file) --><script>
+/* FULL FINAL MERGED effect.js */
+(function(){
+'use strict';
 
-      <div class="controls">
-        <button id="wishBtn" class="btn primary">Make a Wish 🎉</button>
-        <button id="musicBtn" class="btn" aria-pressed="false">Play Music ▶️</button>
-        <button id="slideshowBtn" class="btn primary">Rishi, press here 😭❤️</button>
-        <a class="btn link" id="downloadBtn" href="#">Download Greeting</a>
-      </div>
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+const noop = ()=>{};
 
-      <!-- audio files -->
-      <audio id="bgMusic" src="hbd.mp3" preload="auto"></audio>
-      <audio id="music2" src="music2.mp3" preload="auto"></audio>
+/* DOM */
+const DOM={
+ typed:$('#typed'),
+ turn_on:$('#turn_on'),
+ play:$('#play'),
+ bannar_coming:$('#bannar_coming'),
+ balloons_flying:$('#balloons_flying'),
+ cake_fadein:$('#cake_fadein'),
+ light_candle:$('#light_candle'),
+ wish_message:$('#wish_message'),
+ story:$('#story'),
+ slideshowBtn:$('#slideshowBtn'),
+ overlay:$('#slideshowOverlay'),
+ slideImg:$('#slideImg'),
+ slideCaption:$('#slideCaption'),
+ endSlides:$('#endSlides'),
+ bgMusic:$('#bgMusic'),
+ music2:$('#music2'),
+ fireworks:$('#fireworks'),
+ heartbeatGlow:$('#heartbeatGlow'),
+ finalText:$('#finalText')
+};
 
-      <!-- Slideshow overlay (hidden until triggered) -->
-      <div id="slideshowOverlay" class="slideshow-overlay" aria-hidden="true">
-        <div class="slide-wrapper">
-          <img id="slideImg" src="" alt="slide">
-          <div class="slide-caption" id="slideCaption"></div>
-        </div>
-        <button id="endSlides" class="btn link">End Slideshow</button>
-      </div>
+/* Typed intro */
+(function(){
+ const el=DOM.typed;if(!el)return;
+ const lines=["RISHI! Today your legend level rises.","May you crush goals and beat odds.","Make a wish 🎂"];
+ let li=0,ci=0;el.textContent='';
+ function step(){
+   if(li>=lines.length) return;
+   let s=lines[li];
+   if(ci<s.length){el.textContent+=s[ci++];setTimeout(step,35+Math.random()*35);} 
+   else {li++;ci=0;el.textContent+=' ';setTimeout(step,500);} }
+ setTimeout(step,600);
+})();
 
-      <canvas id="fireworks" class="fireworks-canvas"></canvas>
-    </div>
-  </main>
+/* Fireworks */
+const Fireworks=(function(){const c=DOM.fireworks;if(!c)return null;const ctx=c.getContext('2d');function size(){c.width=innerWidth;c.height=innerHeight;}size();addEventListener('resize',size);let parts=[];function spawn(x,y){for(let i=0;i<50;i++){parts.push({x,y,vx:(Math.random()-.5)*6,vy:(Math.random()-.9)*6,a:1,s:1+Math.random()*3,col:`hsl(${Math.random()*360},80%,60%)`});}}function loop(){ctx.clearRect(0,0,c.width,c.height);for(let i=parts.length-1;i>=0;i--){let p=parts[i];p.x+=p.vx;p.y+=p.vy;p.vy+=0.06;p.a-=0.015;if(p.a<=0){parts.splice(i,1);continue;}ctx.globalAlpha=p.a;ctx.fillStyle=p.col;ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,6.28);ctx.fill();}ctx.globalAlpha=1;requestAnimationFrame(loop);}loop();return{spawn};})();
 
-  <footer class="credit">Made with ❤️ for RISHI — by your friend</footer>
+/* Fade audio */
+function fadeAudio(a,t,d=800){if(!a)return Promise.resolve();t=clamp(t,0,1);const s=a.volume||0,dx=t-s,st=performance.now();return new Promise(res=>{function f(n){const k=clamp((n-st)/d,0,1);a.volume=s+dx*k;if(k<1)requestAnimationFrame(f);else res();}requestAnimationFrame(f);});}
 
-  <!-- load original animation first (don't overwrite) -->
-  <script src="effect.js"></script>
+/* Old animation simulation */
+function simulateOld(){
+ if(DOM.turn_on) DOM.turn_on.onclick=()=>document.body.classList.add('lights');
+ if(DOM.play) DOM.play.onclick=()=>{DOM.bgMusic&&DOM.bgMusic.play().catch(noop)};
+ if(DOM.bannar_coming) DOM.bannar_coming.onclick=()=>document.body.classList.add('banner-show');
+ if(DOM.balloons_flying) DOM.balloons_flying.onclick=()=>document.body.classList.add('balloons-go');
+ if(DOM.cake_fadein) DOM.cake_fadein.onclick=()=>document.body.classList.add('cake-show');
+ if(DOM.light_candle) DOM.light_candle.onclick=()=>document.body.classList.add('candle-lit');
+ if(DOM.wish_message) DOM.wish_message.onclick=()=>alert("Happy Birthday Rishi!");
+ if(DOM.story) DOM.story.onclick=()=>alert("Story Time ✨");
+}
+simulateOld();
 
+/* Slideshow */
+(function(){
+ const O=DOM.overlay,IMG=DOM.slideImg,CAP=DOM.slideCaption,BTN=DOM.slideshowBtn,END=DOM.endSlides;
+ if(!BTN||!O||!IMG||!CAP)return;
+ const slides=[
+  {f:'p1.jpg',m:'Rishi bhai... tu na alag hi level ka insaan hai 🤌'},
+  {f:'p2.jpg',m:'bhot sari khushiya tere liye... hamesa'},
+  {f:'p3.jpg',m:'tu jesa dost milna mushkil hota h re'},
+  {f:'p4.jpg',m:'kabhi kabhi gussa bhi aata pr tu best h 😂💙'},
+  {f:'p5.jpg',m:'teri smile... dangerous cute h 😭🔥'},
+  {f:'p6.jpg',m:'teri life me sirf success success success'},
+  {f:'p7.jpg',m:'proud of u bro ❤️'},
+  {f:'thankyou.jpg',m:'Thanks for being you ❤️'}
+ ];
+ let i=0,timer=null,running=false;
+ function type(text){CAP.textContent='';let k=0;function s(){if(k<text.length){CAP.textContent+=text[k++];setTimeout(s,25+Math.random()*30);} } s();}
+ function show(j){IMG.src=slides[j].f;type(slides[j].m);} 
+ function start(){if(running)return;running=true;i=0;fadeAudio(DOM.bgMusic,0).then(()=>DOM.bgMusic&&DOM.bgMusic.pause());DOM.music2.volume=0;DOM.music2.currentTime=0;DOM.music2.play().catch(noop);fadeAudio(DOM.music2,1);O.style.display='flex';show(i);timer=setInterval(()=>{i++;if(i>=slides.length){finale();return;}show(i);},2000);} 
+ function finale(){clearInterval(timer);Fireworks&&Fireworks.spawn(innerWidth/2,150);setTimeout(()=>{O.style.display='none';},5000);} 
+ BTN.onclick=start;END.onclick=()=>{clearInterval(timer);O.style.display='none';fadeAudio(DOM.music2,0).then(()=>DOM.music2.pause());};
+})();
 
-</body>
-</html>
+})();</script>
